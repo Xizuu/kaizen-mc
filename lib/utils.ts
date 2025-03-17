@@ -25,12 +25,6 @@ export function findPayment(payment: string) {
   return allPayments.find((item) => item.id === payment)?.name || "Undefined payment";
 }
 
-export function fromTimestamp(time: number) {
-  const minutes = Math.floor((time % 3600) / 60);
-  const seconds = time % 60;
-  return `${minutes}m ${seconds}s`
-}
-
 export function formatCurrency(number: number) {
   return new Intl.NumberFormat("id-ID").format(number);
 }

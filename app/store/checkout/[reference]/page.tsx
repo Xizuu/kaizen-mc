@@ -87,7 +87,7 @@ export default function PaymentPage({ params }: PaymentPageProps) {
             setTimeLeft((prevTime) => {
                 if (typeof prevTime !== "number" || prevTime <= 1) {
                     clearInterval(interval);
-                    return "Kadaluarsa"; // Pastikan hanya dikembalikan sekali
+                    return "Kadaluarsa";
                 }
                 return prevTime - 1;
             });
@@ -276,10 +276,13 @@ export default function PaymentPage({ params }: PaymentPageProps) {
                             <div className="flex justify-between items-center">
                                 <span className="text-gray-400">Sisa Waktu</span>
                                 <div className={`flex items-center gap-1 ${typeof timeLeft === "number" ? "text-white" : "text-red-500"}`}>
-                                <span>{typeof timeLeft === "number"
-                                    ? `
-                                        ${Math.floor(timeLeft / 3600)}:${Math.floor(timeLeft / 60)}:${timeLeft % 60}`
-                                    : timeLeft}</span>
+                                    <span>
+                                        {typeof timeLeft === "number"
+                                            ? `${String(Math.floor(timeLeft / 3600)).padStart(2, "0")}:${String(
+                                                Math.floor((timeLeft % 3600) / 60)
+                                            ).padStart(2, "0")}:${String(timeLeft % 60).padStart(2, "0")}`
+                                            : timeLeft}
+                                    </span>
                                 </div>
                             </div>
                         )}

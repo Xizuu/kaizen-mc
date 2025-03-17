@@ -4,12 +4,36 @@ import Link from "next/link";
 import Image from "next/image";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
-import { Home, Trophy, CheckSquare, ShoppingCart, GamepadIcon, Menu } from "lucide-react";
+import {Home, Trophy, CheckSquare, ShoppingCart, GamepadIcon, Menu, Check} from "lucide-react";
 import { DialogTitle } from "@/components/ui/dialog";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
-import {LanguageSwitcher} from "@/components/language-switcher"; // Import VisuallyHidden
+import {toast} from "sonner";
+import {useState} from "react";
 
 export function SiteHeader() {
+    const [language, setLanguage] = useState("id");
+
+    const handleCopyIp = () => {
+        navigator.clipboard.writeText("play.kaizenmc.id")
+            .then(() =>
+                toast(
+                    <div className="flex items-center justify-center gap-2"> {/* Pastikan semua konten berada di tengah */}
+                        <div className="w-5 h-5 rounded-full bg-yellow-400 flex items-center justify-center">
+                            <Check className="w-4 h-4 text-black" />
+                        </div>
+                        <p className="font-bold text-center">
+                            play.kaizenmc.id <span className="font-normal">disalin ke clipboard!</span>
+                        </p>
+                    </div>
+                )
+            );
+    }
+
+    const handleLanguage = () => {
+        setLanguage((prev) => (prev === "id" ? "gb" : "id"))
+        localStorage.setItem("lang", language)
+    }
+
     return (
         <div className="fixed top-0 left-0 right-0 flex justify-center p-4 z-50 opacity-0 animate-fade-in">
             <header className="flex h-14 w-full max-w-[1200px] items-center justify-between rounded-2xl border border-gray-800 bg-gray-900/80 backdrop-blur-sm px-4">
@@ -41,17 +65,25 @@ export function SiteHeader() {
                 {/* Right Side Actions */}
                 <div className="flex items-center gap-4">
                     {/* Play Now Button - Hidden on mobile */}
-                    <Button className="hidden md:flex items-center gap-2 bg-yellow-400 hover:bg-yellow-500 text-black rounded-xl">
+                    <Button
+                        className="hidden md:flex items-center gap-2 bg-yellow-400 hover:bg-yellow-500 text-black rounded-xl"
+                        onClick={handleCopyIp}
+                    >
                         <GamepadIcon className="h-5 w-5" />
                         Main Sekarang
                     </Button>
 
                     {/* Language Selector */}
-                    {/*<div className="flex items-center gap-2">*/}
-                    {/*    <Image src="https://flagcdn.com/id.svg" alt="ID" width={24} height={16} className="h-4 w-6" />*/}
-                    {/*    <span className="text-sm font-medium">ID</span>*/}
-                    {/*</div>*/}
-                    <LanguageSwitcher />
+                    <button onClick={handleLanguage} className="flex items-center gap-2">
+                        <Image
+                            src={`https://cdn.jsdelivr.net/gh/lipis/flag-icons/flags/4x3/${language}.svg`}
+                            alt={language.toUpperCase()}
+                            width={24}
+                            height={16}
+                            className="h-4 w-6"
+                        />
+                        <span className="text-sm font-medium">{language.toUpperCase()}</span>
+                    </button>
 
                     {/* Mobile Menu Button - Only visible on mobile */}
                     <Sheet>
@@ -84,7 +116,10 @@ export function SiteHeader() {
                                     <ShoppingCart className="h-5 w-5" />
                                     <span>Toko</span>
                                 </Link>
-                                <Button className="mt-4 w-full bg-yellow-400 hover:bg-yellow-500 text-black rounded-lg">
+                                <Button
+                                    className="mt-4 w-full bg-yellow-400 hover:bg-yellow-500 text-black rounded-lg"
+                                    onClick={handleCopyIp}
+                                >
                                     <GamepadIcon className="mr-2 h-5 w-5" />
                                     Main Sekarang
                                 </Button>

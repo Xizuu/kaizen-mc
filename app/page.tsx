@@ -1,11 +1,30 @@
+"use client"
+
 import {Button} from "@/components/ui/button"
 import {Card} from "@/components/ui/card"
 import Image from "next/image"
-import {Gamepad2, Server, Trophy, Users} from "lucide-react";
+import {Check, Gamepad2, Server, Trophy, Users} from "lucide-react";
 import {GamemodeSection} from "@/components/gamemode-section";
 import React from "react";
+import {toast} from "sonner";
 
 export default function Home() {
+
+    const handleCopyIp = () => {
+        navigator.clipboard.writeText("play.kaizenmc.id")
+            .then(() =>
+                toast(
+                    <div className="flex items-center justify-center gap-2"> {/* Pastikan semua konten berada di tengah */}
+                        <div className="w-5 h-5 rounded-full bg-yellow-400 flex items-center justify-center">
+                            <Check className="w-4 h-4 text-black" />
+                        </div>
+                        <p className="font-bold text-center">
+                            play.kaizenmc.id <span className="font-normal">disalin ke clipboard!</span>
+                        </p>
+                    </div>
+                )
+            );
+    }
 
     return (
         <div className="container mx-auto px-4 py-8 space-y-12">
@@ -19,8 +38,20 @@ export default function Home() {
                 </h1>
 
                 <p className="text-gray-400">Dunia dengan kemungkinan tak terbatas!</p>
+
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gray-800/70 border border-gray-700 text-sm">
+                    <div className="w-2.5 h-2.5 rounded-full mr-2 bg-green-500">
+                        <span className="w-2 h-2 rounded-full bg-green-500"></span>
+                    </div>
+                    <span className="text-sm font-medium text-gray-300">Server online · 117 Players · Main Sekarang</span>
+                </div>
+
                 <div className="flex flex-wrap justify-center gap-4">
-                    <Button size="lg" className="px-8 py-3 rounded-lg text-lg font-medium transition-colors w-full sm:w-auto flex items-center justify-center text-center bg-[#f8cb08] hover:brightness-110 text-black group relative shadow-[0_0_0_rgba(248,203,8,0)] duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] hover:shadow-[0_8px_16px_rgba(248,203,8,0.15)] hover:bg-yellow-400/90">
+                    <Button
+                        size="lg"
+                        className="px-8 py-3 rounded-lg text-lg font-medium transition-colors w-full sm:w-auto flex items-center justify-center text-center bg-[#f8cb08] hover:brightness-110 text-black group relative shadow-[0_0_0_rgba(248,203,8,0)] duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] hover:shadow-[0_8px_16px_rgba(248,203,8,0.15)] hover:bg-yellow-400/90"
+                        onClick={handleCopyIp}
+                    >
                         <Gamepad2 size={100} />
                         Main Sekarang
                     </Button>

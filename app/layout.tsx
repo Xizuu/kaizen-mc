@@ -4,6 +4,7 @@ import "./globals.css"
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
 import type React from "react"
+import {Toaster} from "sonner";
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -22,6 +23,9 @@ export default function RootLayout({
         <body className={`${inter.className} bg-gray-900 text-white min-h-screen pt-24 flex flex-col`}>
         <SiteHeader />
             <main className="flex-1">{children}</main>
+            <Toaster
+                position="bottom-center"
+            />
         <SiteFooter />
         </body>
         </html>
